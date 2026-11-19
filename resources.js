@@ -1,8 +1,26 @@
 /* Replace sample video IDs, titles, images and affiliate URLs with your own. */
 window.VIDEOS = [
-  {title:"A Cozy Ramen Night",category:"JAPANESE COMFORT FOOD",description:"Warm broth, gentle sounds and a little kitchen magic.",id:"YOUR_VIDEO_ID_1",image:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=85"},
-  {title:"A Sweet Afternoon",category:"DESSERT ASMR",description:"A peaceful little baking session, made with love.",id:"YOUR_VIDEO_ID_2",image:"https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85"},
-  {title:"Japanese Street Food",category:"STREET FOOD",description:"Crispy, sizzling and wonderfully satisfying.",id:"YOUR_VIDEO_ID_3",image:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85"}
+  {
+    title: "Anime Cooking ASMR #1",
+    category: "COOKING ASMR",
+    description: "Relaxing anime cooking moments.",
+    id: "E8kWD06Ho18",
+    image: "https://img.youtube.com/vi/E8kWD06Ho18/hqdefault.jpg"
+  },
+  {
+    title: "Anime Cooking ASMR #2",
+    category: "FOOD ASMR",
+    description: "Enjoy beautiful food and satisfying sounds.",
+    id: "fUIoV0St-y8",
+    image: "https://img.youtube.com/vi/fUIoV0St-y8/hqdefault.jpg"
+  },
+  {
+    title: "Anime Cooking ASMR #3",
+    category: "ANIME FOOD",
+    description: "A little magic in every bite.",
+    id: "MHXIDJ4M65w",
+    image: "https://img.youtube.com/vi/MHXIDJ4M65w/hqdefault.jpg"
+  }
 ];
 window.PRODUCTS = [
   {name:"Japanese ramen bowls",description:"Ceramic bowls for your favorite comfort meals.",image:"https://images.unsplash.com/photo-1576021182211-9ea8d176 e?auto=format&fit=crop&w=700&q=85",url:"#"},
