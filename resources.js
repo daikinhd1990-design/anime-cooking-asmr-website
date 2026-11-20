@@ -88,13 +88,13 @@ const PRODUCT_CATEGORIES = [
  */
 const PRODUCTS = [
   {
-    id: "ceramic-ramen-bowl-set",
-    name: "Handcrafted Japanese Ceramic Ramen Bowl Set",
-    category: "Japanese Tableware",
+    id: "ramen-pho-noodle-bowl",
+    name: "Japanese Ramen & Pho Noodle Bowl",
+    category: "Kitchen Tools",
     description:
-      "Deep stoneware ramen bowl with matching wooden chopsticks and soup spoon for cozy late-night noodles.",
+      "Deep, cozy noodle bowl crafted for steaming late-night ramen, pho, and hearty anime comfort broths.",
     imageUrl: "",
-    affiliateUrl: ""
+    affiliateUrl: "https://s.shopee.vn/2gCr0RD9lh"
   },
   {
     id: "santoku-knife-bamboo-board",
