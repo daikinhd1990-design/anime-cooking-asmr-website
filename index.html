@@ -43,17 +43,11 @@
         </a>
       </nav>
 
-      <div class="header-mobile-actions">
-        <a href="https://www.youtube.com/channel/UCTxSZlfMkxZZ88-GN22Z1sg" class="btn btn-subscribe mobile-subscribe-btn" data-youtube-channel target="_blank" rel="noopener noreferrer" aria-label="Subscribe on YouTube">
-          <svg class="icon-yt" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3.01 3.01 0 0 0-2.12-2.13C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.52A3.01 3.01 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3.01 3.01 0 0 0 2.12 2.13c1.88.52 9.38.52 9.38.52s7.5 0 9.38-.52a3.01 3.01 0 0 0 2.12-2.13A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.24 3.6-6.24 3.6z"/></svg>
-          <span>Subscribe</span>
-        </a>
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-      </div>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
     </div>
   </header>
 
@@ -80,11 +74,17 @@
             Cozy kitchens, satisfying cooking sounds and beautiful food moments. Your daily escape into a softer world.
           </p>
           <div class="hero-actions">
-            <a href="https://www.youtube.com/channel/UCTxSZlfMkxZZ88-GN22Z1sg" class="btn btn-primary" data-youtube-channel target="_blank" rel="noopener noreferrer">
-              <svg class="icon-yt" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3.01 3.01 0 0 0-2.12-2.13C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.52A3.01 3.01 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3.01 3.01 0 0 0 2.12 2.13c1.88.52 9.38.52 9.38.52s7.5 0 9.38-.52a3.01 3.01 0 0 0 2.12-2.13A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.24 3.6-6.24 3.6z"/></svg>
-              Watch on YouTube
-            </a>
-            <a href="#watch" class="btn btn-secondary">
+            <div class="hero-primary-stack">
+              <a href="https://www.youtube.com/channel/UCTxSZlfMkxZZ88-GN22Z1sg" class="btn btn-primary" data-youtube-channel target="_blank" rel="noopener noreferrer">
+                <svg class="icon-yt" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3.01 3.01 0 0 0-2.12-2.13C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.52A3.01 3.01 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3.01 3.01 0 0 0 2.12 2.13c1.88.52 9.38.52 9.38.52s7.5 0 9.38-.52a3.01 3.01 0 0 0 2.12-2.13A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.24 3.6-6.24 3.6z"/></svg>
+                Watch on YouTube
+              </a>
+              <a href="https://www.youtube.com/channel/UCTxSZlfMkxZZ88-GN22Z1sg" class="btn btn-hero-subscribe" data-youtube-channel target="_blank" rel="noopener noreferrer">
+                <svg class="icon-yt" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                Subscribe
+              </a>
+            </div>
+            <a href="#watch" class="btn btn-secondary hero-explore-btn">
               Explore Videos
             </a>
           </div>
