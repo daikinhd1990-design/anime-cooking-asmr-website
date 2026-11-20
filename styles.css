@@ -1210,15 +1210,15 @@ button:focus-visible {
 }
 
 .btn-hero-subscribe {
-  background-color: var(--color-sage-dark);
+  background-color: var(--color-berry);
   color: var(--color-white);
-  box-shadow: 0 8px 20px rgba(87, 117, 82, 0.28);
+  box-shadow: 0 8px 20px rgba(217, 91, 87, 0.34);
 }
 
 .btn-hero-subscribe:hover {
-  background-color: #466042;
+  background-color: var(--color-berry-dark);
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(87, 117, 82, 0.36);
+  box-shadow: 0 12px 26px rgba(217, 91, 87, 0.42);
 }
 
 @media (max-width: 600px) {
