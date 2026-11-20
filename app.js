@@ -3,16 +3,21 @@
  * ANIME COOKING ASMR — APPLICATION LOGIC (app.js)
  * ============================================================================
  * Handles:
- * - Applying SITE_CONFIG brand details and optional logo/banner/favicon
+ * - Applying SITE_CONFIG brand details and official logo/banner/favicon
  * - Rendering YouTube Shorts videos with official thumbnails
  * - Rendering the Food Gallery moodboard
- * - Rendering Shopee Affiliate products + category filter tabs
- * - Validating Affiliate URLs (shows "LINK COMING SOON" when empty/invalid)
+ * - Loading Shopee Affiliate products from Google Sheets (CSV) with
+ *   automatic fallback to resources.js if offline or unavailable
+ * - Rendering category filter tabs and validating Affiliate URLs
+ *   (shows "LINK COMING SOON" when empty/invalid, "SHOP NOW" when valid)
  * - Mobile navigation toggle
  */
 
 (function () {
   "use strict";
+
+  let activeCategory = "All";
+  let currentProducts = typeof PRODUCTS !== "undefined" && Array.isArray(PRODUCTS) ? PRODUCTS.slice() : [];
 
   /**
    * Escape HTML to keep dynamic text safe.
@@ -54,6 +59,138 @@
   }
 
   /**
+   * RFC-4180 compliant CSV parser (supports commas & newlines inside quotes).
+   */
+  function parseCsv(csvText) {
+    const rows = [];
+    let currentRow = [];
+    let currentField = "";
+    let inQuotes = false;
+
+    const text = String(csvText || "").replace(/^\uFEFF/, "");
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      const nextChar = text[i + 1];
+
+      if (inQuotes) {
+        if (char === '"' && nextChar === '"') {
+          currentField += '"';
+          i++;
+        } else if (char === '"') {
+          inQuotes = false;
+        } else {
+          currentField += char;
+        }
+      } else {
+        if (char === '"') {
+          inQuotes = true;
+        } else if (char === ",") {
+          currentRow.push(currentField);
+          currentField = "";
+        } else if (char === "\r" && nextChar === "\n") {
+          currentRow.push(currentField);
+          rows.push(currentRow);
+          currentRow = [];
+          currentField = "";
+          i++;
+        } else if (char === "\n" || char === "\r") {
+          currentRow.push(currentField);
+          rows.push(currentRow);
+          currentRow = [];
+          currentField = "";
+        } else {
+          currentField += char;
+        }
+      }
+    }
+
+    if (currentField.length > 0 || currentRow.length > 0) {
+      currentRow.push(currentField);
+      rows.push(currentRow);
+    }
+
+    return rows;
+  }
+
+  /**
+   * Convert parsed CSV rows into product objects using Row 1 headers.
+   */
+  function mapCsvRowsToProducts(rows) {
+    if (!Array.isArray(rows) || rows.length < 2) return [];
+
+    const headers = rows[0].map((h) => String(h || "").trim().toLowerCase());
+    const idxId = headers.indexOf("id");
+    const idxName = headers.indexOf("name");
+    const idxCategory = headers.indexOf("category");
+    const idxDescription = headers.indexOf("description");
+    const idxImageUrl = headers.indexOf("imageurl");
+    const idxAffiliateUrl = headers.indexOf("affiliateurl");
+
+    if (idxName === -1) return [];
+
+    const products = [];
+    for (let r = 1; r < rows.length; r++) {
+      const row = rows[r];
+      if (!row || !row.length) continue;
+
+      const name = String(row[idxName] || "").trim();
+      if (!name) continue;
+
+      const rawId = idxId !== -1 ? String(row[idxId] || "").trim() : "";
+      const category = idxCategory !== -1 ? String(row[idxCategory] || "").trim() : "Kitchen Tools";
+      const description = idxDescription !== -1 ? String(row[idxDescription] || "").trim() : "";
+      const imageUrl = idxImageUrl !== -1 ? String(row[idxImageUrl] || "").trim() : "";
+      const affiliateUrl = idxAffiliateUrl !== -1 ? String(row[idxAffiliateUrl] || "").trim() : "";
+
+      products.push({
+        id: rawId || `sheet-product-${r}`,
+        name: name,
+        category: category || "Kitchen Tools",
+        description: description,
+        imageUrl: imageUrl,
+        affiliateUrl: affiliateUrl
+      });
+    }
+
+    return products;
+  }
+
+  /**
+   * Fetch products from Google Sheets CSV URL (falls back to resources.js on error).
+   */
+  async function loadProductsFromGoogleSheet() {
+    if (
+      typeof SITE_CONFIG === "undefined" ||
+      !SITE_CONFIG.productsSheetCsvUrl ||
+      !SITE_CONFIG.productsSheetCsvUrl.trim()
+    ) {
+      return;
+    }
+
+    const csvUrl = SITE_CONFIG.productsSheetCsvUrl.trim();
+
+    try {
+      const response = await fetch(csvUrl, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const csvText = await response.text();
+      const rows = parseCsv(csvText);
+      const sheetProducts = mapCsvRowsToProducts(rows);
+
+      if (sheetProducts.length > 0) {
+        currentProducts = sheetProducts;
+        renderStoreFilters();
+        renderProducts(activeCategory);
+      }
+    } catch (err) {
+      console.warn("Could not load products from Google Sheets, using resources.js fallback:", err);
+    }
+  }
+
+  /**
    * Apply general configuration from config.js
    */
   function applySiteConfig() {
@@ -87,9 +224,9 @@
       if (footerDisclosure) footerDisclosure.textContent = SITE_CONFIG.affiliateDisclosure;
     }
 
-    // Optional official branding assets (Phase 5)
+    // Official branding assets
     if (SITE_CONFIG.branding) {
-      const { logoUrl, heroBannerUrl, faviconUrl } = SITE_CONFIG.branding;
+      const { logoUrl, heroBannerUrl, characterCardUrl, faviconUrl } = SITE_CONFIG.branding;
 
       if (logoUrl && logoUrl.trim()) {
         document.querySelectorAll(".brand-emblem").forEach((wrap) => {
@@ -100,7 +237,14 @@
       if (heroBannerUrl && heroBannerUrl.trim()) {
         const heroBackdrop = document.getElementById("hero-backdrop");
         if (heroBackdrop) {
-          heroBackdrop.style.backgroundImage = `linear-gradient(135deg, rgba(52, 38, 56, 0.78), rgba(52, 38, 56, 0.62)), url('${heroBannerUrl.trim()}')`;
+          heroBackdrop.style.backgroundImage = `url('${heroBannerUrl.trim()}')`;
+        }
+      }
+
+      if (characterCardUrl && characterCardUrl.trim()) {
+        const charImg = document.getElementById("character-card-img");
+        if (charImg) {
+          charImg.src = characterCardUrl.trim();
         }
       }
 
@@ -253,41 +397,61 @@
     const label = escapeHtml(category);
     return `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="product-image" role="img" aria-label="${label} preview">
-        <rect width="320" height="240" fill="#F8EFE6"/>
-        <circle cx="160" cy="108" r="54" fill="#EFB8B5" fill-opacity="0.45"/>
-        <circle cx="160" cy="108" r="38" fill="#FFFAF4" stroke="#D9B77B" stroke-width="2"/>
-        <path d="M138 110C138 122 148 130 160 130C172 130 182 122 182 110H138Z" fill="#342638"/>
-        <path d="M134 109H186" stroke="#D97970" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M153 98C153 93 156 92 156 88" stroke="#D9B77B" stroke-width="2" stroke-linecap="round"/>
-        <path d="M164 98C164 93 167 92 167 88" stroke="#D9B77B" stroke-width="2" stroke-linecap="round"/>
-        <text x="160" y="190" text-anchor="middle" fill="#6A5B6E" font-family="DM Sans, sans-serif" font-size="13" font-weight="600">${label}</text>
+        <rect width="320" height="240" fill="#F6EDE2"/>
+        <circle cx="160" cy="108" r="54" fill="#F3B7A8" fill-opacity="0.45"/>
+        <circle cx="160" cy="108" r="38" fill="#FFF9F2" stroke="#DDA96B" stroke-width="2"/>
+        <path d="M138 110C138 122 148 130 160 130C172 130 182 122 182 110H138Z" fill="#4A332D"/>
+        <path d="M134 109H186" stroke="#D95B57" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M153 98C153 93 156 92 156 88" stroke="#DDA96B" stroke-width="2" stroke-linecap="round"/>
+        <path d="M164 98C164 93 167 92 167 88" stroke="#DDA96B" stroke-width="2" stroke-linecap="round"/>
+        <text x="160" y="190" text-anchor="middle" fill="#7A5E56" font-family="DM Sans, sans-serif" font-size="13" font-weight="600">${label}</text>
       </svg>
     `;
   }
 
-  let activeCategory = "All";
+  /**
+   * Build category list (default categories + any new categories from Google Sheets)
+   */
+  function getCategoriesList() {
+    const base =
+      typeof PRODUCT_CATEGORIES !== "undefined" && Array.isArray(PRODUCT_CATEGORIES)
+        ? PRODUCT_CATEGORIES.slice()
+        : ["All", "Japanese Tableware", "Kitchen Tools", "Cookware", "Cute Kitchen"];
+
+    currentProducts.forEach((product) => {
+      if (product.category && !base.includes(product.category)) {
+        base.push(product.category);
+      }
+    });
+
+    return base;
+  }
 
   /**
    * Render store category filter buttons
    */
   function renderStoreFilters() {
     const filterContainer = document.getElementById("store-filters");
-    if (!filterContainer || typeof PRODUCT_CATEGORIES === "undefined") return;
+    if (!filterContainer) return;
 
-    filterContainer.innerHTML = PRODUCT_CATEGORIES.map((category) => {
-      const isActive = category === activeCategory;
-      return `
-        <button
-          type="button"
-          class="filter-btn ${isActive ? "is-active" : ""}"
-          role="tab"
-          aria-selected="${isActive ? "true" : "false"}"
-          data-category="${escapeHtml(category)}"
-        >
-          ${escapeHtml(category)}
-        </button>
-      `;
-    }).join("");
+    const categories = getCategoriesList();
+
+    filterContainer.innerHTML = categories
+      .map((category) => {
+        const isActive = category === activeCategory;
+        return `
+          <button
+            type="button"
+            class="filter-btn ${isActive ? "is-active" : ""}"
+            role="tab"
+            aria-selected="${isActive ? "true" : "false"}"
+            data-category="${escapeHtml(category)}"
+          >
+            ${escapeHtml(category)}
+          </button>
+        `;
+      })
+      .join("");
 
     filterContainer.querySelectorAll(".filter-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -299,51 +463,53 @@
   }
 
   /**
-   * Render Shopee Affiliate products from resources.js
+   * Render Shopee Affiliate products
    */
   function renderProducts(categoryFilter) {
     const grid = document.getElementById("products-grid");
-    if (!grid || typeof PRODUCTS === "undefined") return;
+    if (!grid) return;
 
     const filtered =
       !categoryFilter || categoryFilter === "All"
-        ? PRODUCTS
-        : PRODUCTS.filter((product) => product.category === categoryFilter);
+        ? currentProducts
+        : currentProducts.filter((product) => product.category === categoryFilter);
 
     if (!filtered.length) {
       grid.innerHTML = `<div class="empty-state">More cozy kitchen items in this category are coming soon.</div>`;
       return;
     }
 
-    grid.innerHTML = filtered.map((product) => {
-      const name = escapeHtml(product.name);
-      const category = escapeHtml(product.category);
-      const description = escapeHtml(product.description);
-      const hasImage = typeof product.imageUrl === "string" && product.imageUrl.trim().length > 0;
-      const hasValidAffiliateLink = isValidAffiliateUrl(product.affiliateUrl);
+    grid.innerHTML = filtered
+      .map((product) => {
+        const name = escapeHtml(product.name);
+        const category = escapeHtml(product.category);
+        const description = escapeHtml(product.description);
+        const hasImage = typeof product.imageUrl === "string" && product.imageUrl.trim().length > 0;
+        const hasValidAffiliateLink = isValidAffiliateUrl(product.affiliateUrl);
 
-      const imageMarkup = hasImage
-        ? `<img src="${escapeHtml(product.imageUrl.trim())}" alt="${name}" class="product-image" loading="lazy" />`
-        : createProductPlaceholderSvg(product.category);
+        const imageMarkup = hasImage
+          ? `<img src="${escapeHtml(product.imageUrl.trim())}" alt="${name}" class="product-image" loading="lazy" />`
+          : createProductPlaceholderSvg(product.category);
 
-      const actionMarkup = hasValidAffiliateLink
-        ? `<a href="${escapeHtml(product.affiliateUrl.trim())}" class="btn btn-shopee" target="_blank" rel="sponsored nofollow noopener">SHOP NOW</a>`
-        : `<button type="button" class="btn btn-coming-soon" disabled aria-disabled="true">LINK COMING SOON</button>`;
+        const actionMarkup = hasValidAffiliateLink
+          ? `<a href="${escapeHtml(product.affiliateUrl.trim())}" class="btn btn-shopee" target="_blank" rel="sponsored nofollow noopener">SHOP NOW</a>`
+          : `<button type="button" class="btn btn-coming-soon" disabled aria-disabled="true">LINK COMING SOON</button>`;
 
-      return `
-        <article class="product-card">
-          <div class="product-image-wrap">
-            ${imageMarkup}
-            <span class="product-category-badge">${category}</span>
-          </div>
-          <div class="product-body">
-            <h3 class="product-name">${name}</h3>
-            <p class="product-desc">${description}</p>
-            ${actionMarkup}
-          </div>
-        </article>
-      `;
-    }).join("");
+        return `
+          <article class="product-card">
+            <div class="product-image-wrap">
+              ${imageMarkup}
+              <span class="product-category-badge">${category}</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">${name}</h3>
+              <p class="product-desc">${description}</p>
+              ${actionMarkup}
+            </div>
+          </article>
+        `;
+      })
+      .join("");
   }
 
   /**
@@ -387,5 +553,6 @@
     renderStoreFilters();
     renderProducts(activeCategory);
     initMobileNav();
+    loadProductsFromGoogleSheet();
   });
 })();
