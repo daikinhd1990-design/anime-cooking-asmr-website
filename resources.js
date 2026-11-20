@@ -1,30 +1,126 @@
-/* Replace sample video IDs, titles, images and affiliate URLs with your own. */
-window.VIDEOS = [
+/**
+ * ============================================================================
+ * ANIME COOKING ASMR — DYNAMIC CONTENT & RESOURCES (resources.js)
+ * ============================================================================
+ * This is the main file you will edit whenever you want to:
+ * 1. Add new YouTube videos (VIDEOS array)
+ * 2. Update Food Gallery themes (FOOD_GALLERY array)
+ * 3. Add or update Shopee Affiliate products (PRODUCTS array)
+ *
+ * IMPORTANT RULES FOR SHOPEE AFFILIATE:
+ * - Only paste real Affiliate links generated from https://affiliate.shopee.vn/
+ * - NEVER paste regular Shopee product links or fake URLs.
+ * - If a product does not have a real Affiliate link yet, keep affiliateUrl: ""
+ *   and the button will automatically show "LINK COMING SOON".
+ */
+
+const VIDEOS = [
   {
-    title: "Anime Cooking ASMR #1",
-    category: "COOKING ASMR",
-    description: "Relaxing anime cooking moments.",
     id: "E8kWD06Ho18",
-    image: "https://img.youtube.com/vi/E8kWD06Ho18/hqdefault.jpg"
+    title: "Strawberry Shortcake | Anime Cooking ASMR",
+    description:
+      "Fresh strawberries, soft whipped cream, and layered sponge cake crafted gently in a sunlit anime kitchen.",
+    url: "https://www.youtube.com/shorts/E8kWD06Ho18"
   },
   {
-    title: "Anime Cooking ASMR #2",
-    category: "FOOD ASMR",
-    description: "Enjoy beautiful food and satisfying sounds.",
     id: "fUIoV0St-y8",
-    image: "https://img.youtube.com/vi/fUIoV0St-y8/hqdefault.jpg"
+    title: "Real Anime Beef Stew",
+    description:
+      "Slow-simmered tender beef, carrots, and rich savory broth bubbling warmly in a classic copper pot.",
+    url: "https://www.youtube.com/shorts/fUIoV0St-y8"
   },
   {
-    title: "Anime Cooking ASMR #3",
-    category: "ANIME FOOD",
-    description: "A little magic in every bite.",
     id: "MHXIDJ4M65w",
-    image: "https://img.youtube.com/vi/MHXIDJ4M65w/hqdefault.jpg"
+    title: "Grilled Yakitori | Anime Cooking ASMR",
+    description:
+      "Savory chicken and scallion skewers glazed with tare sauce and sizzling over glowing charcoal.",
+    url: "https://www.youtube.com/shorts/MHXIDJ4M65w"
   }
 ];
-window.PRODUCTS = [
-  {name:"Japanese ramen bowls",description:"Ceramic bowls for your favorite comfort meals.",image:"https://images.unsplash.com/photo-1576021182211-9ea8d176 e?auto=format&fit=crop&w=700&q=85",url:"#"},
-  {name:"Everyday chef knife",description:"A useful kitchen essential for everyday prep.",image:"https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=700&q=85",url:"#"},
-  {name:"Wooden cooking tools",description:"Simple utensils for a warm, natural kitchen.",image:"https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=700&q=85",url:"#"},
-  {name:"Japanese tableware",description:"Little details that make meals feel special.",image:"https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=700&q=85",url:"#"}
+
+const FOOD_GALLERY = [
+  {
+    id: "ramen-nights",
+    tag: "Midnight Warmth",
+    title: "Ramen Nights",
+    description:
+      "Rich golden broth, soft-boiled ajitama eggs, and rising steam under warm lantern light.",
+    palette: ["#342638", "#D97970", "#D9B77B"]
+  },
+  {
+    id: "sushi-stories",
+    tag: "Delicate Craft",
+    title: "Sushi Stories",
+    description:
+      "Precision slices, seasoned rice, and serene handmade moments inspired by traditional sushi counters.",
+    palette: ["#4A354E", "#EFB8B5", "#FFFAF4"]
+  },
+  {
+    id: "fluffy-desserts",
+    tag: "Sweet Escape",
+    title: "Fluffy Desserts",
+    description:
+      "Cloud-soft strawberry shortcakes, soufflé pancakes, and pastel patisserie treats straight out of anime.",
+    palette: ["#6B4457", "#EFB8B5", "#D9B77B"]
+  },
+  {
+    id: "cozy-comfort-bowls",
+    tag: "Hearty & Homestyle",
+    title: "Cozy Comfort Bowls",
+    description:
+      "Simmering beef stews, warm donburi bowls, and nostalgic home-cooked dinners for rainy evenings.",
+    palette: ["#5B3A42", "#D9B77B", "#F8EFE6"]
+  }
+];
+
+const PRODUCT_CATEGORIES = [
+  "All",
+  "Japanese Tableware",
+  "Kitchen Tools",
+  "Cookware",
+  "Cute Kitchen"
+];
+
+/**
+ * SHOPEE AFFILIATE PRODUCTS
+ * Add as many products as you want by copying one object below.
+ * Remember: Leave affiliateUrl as "" until you paste your real Shopee Affiliate link.
+ */
+const PRODUCTS = [
+  {
+    id: "ceramic-ramen-bowl-set",
+    name: "Handcrafted Japanese Ceramic Ramen Bowl Set",
+    category: "Japanese Tableware",
+    description:
+      "Deep stoneware ramen bowl with matching wooden chopsticks and soup spoon for cozy late-night noodles.",
+    imageUrl: "",
+    affiliateUrl: ""
+  },
+  {
+    id: "santoku-knife-bamboo-board",
+    name: "Japanese Santoku Knife & Bamboo Cutting Board",
+    category: "Kitchen Tools",
+    description:
+      "Balanced everyday chef knife paired with a warm natural bamboo board for crisp, satisfying ASMR prep.",
+    imageUrl: "",
+    affiliateUrl: ""
+  },
+  {
+    id: "mini-ceramic-hotpot",
+    name: "Cozy Mini Japanese Clay Pot (Donabe)",
+    category: "Cookware",
+    description:
+      "Compact heat-retaining pot ideal for simmering individual stews, udon, and bubbling anime comfort meals.",
+    imageUrl: "",
+    affiliateUrl: ""
+  },
+  {
+    id: "pastel-cat-chopstick-rest",
+    name: "Cute Ceramic Cat Chopstick Rest & Spoon Set",
+    category: "Cute Kitchen",
+    description:
+      "Charming pastel Japanese table accent that adds a soft, playful anime touch to every meal setup.",
+    imageUrl: "",
+    affiliateUrl: ""
+  }
 ];
