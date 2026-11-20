@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Anime Cooking ASMR — Cozy kitchens, satisfying cooking sounds, and beautiful Japanese food moments. Watch Shorts on YouTube and explore curated Japanese kitchenware." />
+  <meta name="description" content="Anime Cooking ASMR — Cozy Japanese kitchens, satisfying cooking sounds, and heartwarming anime food moments. Watch Shorts on YouTube and explore curated Japanese kitchenware." />
   <title>Anime Cooking ASMR | A little anime magic in every bite.</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
 
   <!-- Google Fonts: Playfair Display & DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,17 +20,13 @@
   <header class="site-header" id="top">
     <div class="container header-inner">
       <a href="#home" class="brand-logo" aria-label="Anime Cooking ASMR Home">
-        <span class="brand-emblem" id="brand-emblem" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="19" fill="#342638" stroke="#D9B77B" stroke-width="1.5"/>
-            <path d="M10 22C10 27.5228 14.4772 32 20 32C25.5228 32 30 27.5228 30 22H10Z" fill="#EFB8B5"/>
-            <path d="M8.5 21H31.5" stroke="#FFFAF4" stroke-width="2" stroke-linecap="round"/>
-            <path d="M15 16.5C15 14.5 16.5 14 16.5 12" stroke="#D9B77B" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M20 15.5C20 13.5 21.5 13 21.5 11" stroke="#D9B77B" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M25 16.5C25 14.5 26.5 14 26.5 12" stroke="#D9B77B" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
+        <span class="brand-emblem" id="brand-emblem">
+          <img src="assets/avatar.jpg" alt="Anime Cooking ASMR Avatar" />
         </span>
-        <span class="brand-text" data-brand-name>Anime Cooking ASMR</span>
+        <span class="brand-text-wrap">
+          <span class="brand-text" data-brand-name>Anime Cooking ASMR</span>
+          <span class="brand-sub">Cozy Japanese Kitchen</span>
+        </span>
       </a>
 
       <nav class="main-nav" id="main-nav" aria-label="Primary Navigation">
@@ -55,17 +52,23 @@
   </header>
 
   <main>
-    <!-- 2. HERO BANNER -->
+    <!-- 2. HERO BANNER (Bám sát Banner chính thức của kênh) -->
     <section class="hero" id="home" aria-labelledby="hero-title">
-      <div class="hero-backdrop" id="hero-backdrop" aria-hidden="true">
-        <div class="hero-glow hero-glow-1"></div>
-        <div class="hero-glow hero-glow-2"></div>
-        <div class="hero-window-light"></div>
+      <div class="hero-backdrop" id="hero-backdrop" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-sparkles" aria-hidden="true">
+        <span class="sparkle s1"></span>
+        <span class="sparkle s2"></span>
+        <span class="sparkle s3"></span>
+        <span class="sparkle s4"></span>
       </div>
 
-      <div class="container hero-grid">
+      <div class="container hero-inner">
         <div class="hero-content">
-          <span class="eyebrow">Cozy Japanese Kitchen &bull; Food ASMR</span>
+          <span class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Cozy Japanese Kitchen &bull; Food ASMR
+          </span>
           <h1 class="hero-title" id="hero-title">A little anime magic in every bite.</h1>
           <p class="hero-subtitle">
             Cozy kitchens, satisfying cooking sounds and beautiful food moments. Your daily escape into a softer world.
@@ -82,109 +85,65 @@
           <div class="hero-highlights" aria-label="Channel highlights">
             <div class="highlight-pill">
               <span class="highlight-dot"></span>
-              <span>Relaxing Cooking Sounds</span>
+              <span>Relax &amp; Sleep Sounds</span>
             </div>
             <div class="highlight-pill">
               <span class="highlight-dot"></span>
-              <span>Anime Food Aesthetics</span>
+              <span>Japanese Food Aesthetics</span>
             </div>
             <div class="highlight-pill">
               <span class="highlight-dot"></span>
-              <span>Japanese Kitchen Vibes</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <div class="kitchen-frame">
-            <svg viewBox="0 0 460 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="kitchen-illustration">
-              <defs>
-                <linearGradient id="skyWarm" x1="0" y1="0" x2="460" y2="360" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#4A354E"/>
-                  <stop offset="55%" stop-color="#6B4457"/>
-                  <stop offset="100%" stop-color="#D97970"/>
-                </linearGradient>
-                <radialGradient id="sunGlow" cx="0.72" cy="0.28" r="0.55">
-                  <stop offset="0%" stop-color="#FFFAF4" stop-opacity="0.95"/>
-                  <stop offset="45%" stop-color="#D9B77B" stop-opacity="0.55"/>
-                  <stop offset="100%" stop-color="#D97970" stop-opacity="0"/>
-                </radialGradient>
-                <linearGradient id="tableWood" x1="0" y1="245" x2="0" y2="360" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#6B4A3E"/>
-                  <stop offset="100%" stop-color="#3F2B28"/>
-                </linearGradient>
-              </defs>
-              <!-- Warm window backdrop -->
-              <rect width="460" height="360" rx="24" fill="url(#skyWarm)"/>
-              <rect width="460" height="360" rx="24" fill="url(#sunGlow)"/>
-              <!-- Shoji-inspired kitchen window -->
-              <rect x="235" y="28" width="185" height="165" rx="12" fill="#FFFAF4" fill-opacity="0.18" stroke="#FFFAF4" stroke-opacity="0.45" stroke-width="2"/>
-              <line x1="327" y1="28" x2="327" y2="193" stroke="#FFFAF4" stroke-opacity="0.35" stroke-width="2"/>
-              <line x1="235" y1="110" x2="420" y2="110" stroke="#FFFAF4" stroke-opacity="0.35" stroke-width="2"/>
-              <!-- Hanging warm lantern -->
-              <line x1="120" y1="0" x2="120" y2="56" stroke="#D9B77B" stroke-width="2"/>
-              <ellipse cx="120" cy="78" rx="30" ry="24" fill="#FFFAF4" fill-opacity="0.9"/>
-              <ellipse cx="120" cy="78" rx="30" ry="24" fill="#D9B77B" fill-opacity="0.35"/>
-              <rect x="108" y="52" width="24" height="6" rx="3" fill="#342638"/>
-              <rect x="110" y="100" width="20" height="5" rx="2.5" fill="#342638"/>
-              <!-- Wooden counter -->
-              <path d="M0 248H460V360H0V248Z" fill="url(#tableWood)"/>
-              <line x1="0" y1="248" x2="460" y2="248" stroke="#D9B77B" stroke-opacity="0.5" stroke-width="2"/>
-              <!-- Steaming Ramen Bowl -->
-              <ellipse cx="220" cy="272" rx="105" ry="18" fill="#2A1C2D" fill-opacity="0.45"/>
-              <path d="M126 218C126 266 168 292 220 292C272 292 314 266 314 218H126Z" fill="#342638" stroke="#D9B77B" stroke-width="2.5"/>
-              <ellipse cx="220" cy="218" rx="94" ry="20" fill="#D9B77B"/>
-              <ellipse cx="220" cy="218" rx="86" ry="15" fill="#D97970" fill-opacity="0.85"/>
-              <!-- Egg & toppings -->
-              <ellipse cx="185" cy="215" rx="20" ry="11" fill="#FFFAF4"/>
-              <ellipse cx="185" cy="215" rx="10" ry="6" fill="#D9B77B"/>
-              <circle cx="242" cy="214" r="11" fill="#EFB8B5"/>
-              <circle cx="242" cy="214" r="5" fill="#FFFAF4"/>
-              <rect x="262" y="198" width="24" height="18" rx="3" transform="rotate(-12 262 198)" fill="#24302C"/>
-              <!-- Chopsticks -->
-              <line x1="255" y1="204" x2="368" y2="174" stroke="#FFFAF4" stroke-width="4" stroke-linecap="round"/>
-              <line x1="258" y1="212" x2="370" y2="188" stroke="#D9B77B" stroke-width="4" stroke-linecap="round"/>
-              <!-- Rising Steam -->
-              <path d="M180 185C172 165 190 152 182 132" stroke="#FFFAF4" stroke-opacity="0.7" stroke-width="3" stroke-linecap="round"/>
-              <path d="M220 178C212 155 232 140 222 118" stroke="#FFFAF4" stroke-opacity="0.85" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M258 185C250 165 268 152 260 132" stroke="#FFFAF4" stroke-opacity="0.7" stroke-width="3" stroke-linecap="round"/>
-              <!-- Sparkles -->
-              <path d="M80 155L83 163L91 166L83 169L80 177L77 169L69 166L77 163L80 155Z" fill="#FFFAF4" fill-opacity="0.85"/>
-              <path d="M385 112L387 118L393 120L387 122L385 128L383 122L377 120L383 118L385 112Z" fill="#D9B77B"/>
-            </svg>
-            <div class="kitchen-caption">
-              <span class="caption-badge">Warm Kitchen Aesthetic</span>
-              <p>Soft anime visuals paired with crisp, calming culinary ASMR.</p>
+              <span>Warm Sunlit Kitchen</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. INTRODUCTION -->
+    <!-- 3. INTRODUCTION (Kết hợp chân dung nhân vật chính thức) -->
     <section class="section intro-section" aria-labelledby="intro-title">
-      <div class="container intro-inner">
-        <span class="section-eyebrow">Our World</span>
-        <h2 class="section-title" id="intro-title">Where food meets fantasy.</h2>
-        <p class="intro-text">
-          <strong>Anime Cooking ASMR</strong> brings the warmth of classic Japanese animation into everyday culinary moments. From the gentle sizzle of charcoal-grilled yakitori to the quiet comfort of slow-simmered beef stew and delicate strawberry shortcake, every video is crafted to soothe your mind and awaken your appetite.
-        </p>
-        <div class="intro-pillars">
-          <article class="pillar-card">
-            <span class="pillar-number">01</span>
-            <h3>Cinematic Food Art</h3>
-            <p>Warm golden-hour lighting, soft pastel palettes, and mouth-watering anime-inspired presentation.</p>
-          </article>
-          <article class="pillar-card">
-            <span class="pillar-number">02</span>
-            <h3>Pure Kitchen ASMR</h3>
-            <p>Crisp knife chops, simmering broths, and delicate whisking sounds designed for deep relaxation.</p>
-          </article>
-          <article class="pillar-card">
-            <span class="pillar-number">03</span>
-            <h3>Curated Kitchen Joy</h3>
-            <p>Handpicked Japanese tableware and cozy cooking tools to help you recreate the magic at home.</p>
-          </article>
+      <div class="container">
+        <div class="intro-split">
+          <div class="intro-portrait-wrap">
+            <div class="anime-postcard">
+              <img src="assets/character-card.jpg" alt="Anime Cooking ASMR Host holding a basket of fresh strawberries" class="intro-portrait" id="character-card-img" loading="lazy" />
+              <div class="postcard-badge">
+                <span>Fresh from the Kitchen</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="intro-copy">
+            <span class="section-eyebrow">Our World</span>
+            <h2 class="section-title" id="intro-title">Where food meets fantasy.</h2>
+            <p class="intro-text">
+              <strong>Anime Cooking ASMR</strong> brings the gentle warmth of a sunlit Japanese kitchen straight to your screen. From fresh strawberries and fluffy shortcake to slow-simmered beef stew and charcoal-grilled yakitori, every frame and whisper of sound is crafted to help you unwind.
+            </p>
+
+            <div class="intro-pillars">
+              <article class="pillar-card">
+                <span class="pillar-number">01</span>
+                <div>
+                  <h3>Sunlit Anime Aesthetic</h3>
+                  <p>Soft pastel palettes, warm golden light, and comforting Japanese kitchen details.</p>
+                </div>
+              </article>
+              <article class="pillar-card">
+                <span class="pillar-number">02</span>
+                <div>
+                  <h3>Soothing Cooking ASMR</h3>
+                  <p>Crisp chopping, gentle simmering, and calming culinary sounds for study or sleep.</p>
+                </div>
+              </article>
+              <article class="pillar-card">
+                <span class="pillar-number">03</span>
+                <div>
+                  <h3>Curated Kitchen Joy</h3>
+                  <p>Handpicked Japanese tableware and cozy tools to bring the anime kitchen feel home.</p>
+                </div>
+              </article>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -258,6 +217,9 @@
     <section class="section cta-section" id="about" aria-labelledby="cta-title">
       <div class="container">
         <div class="cta-card">
+          <div class="cta-avatar-wrap">
+            <img src="assets/avatar.jpg" alt="Anime Cooking ASMR" class="cta-avatar" />
+          </div>
           <div class="cta-content">
             <span class="section-eyebrow light">Join the Kitchen</span>
             <h2 class="cta-title" id="cta-title">Let's make something delicious.</h2>
@@ -281,12 +243,8 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a href="#home" class="brand-logo footer-logo">
-          <span class="brand-emblem small" aria-hidden="true">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="19" fill="#342638" stroke="#D9B77B" stroke-width="1.5"/>
-              <path d="M10 22C10 27.5228 14.4772 32 20 32C25.5228 32 30 27.5228 30 22H10Z" fill="#EFB8B5"/>
-              <path d="M8.5 21H31.5" stroke="#FFFAF4" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+          <span class="brand-emblem small">
+            <img src="assets/avatar.jpg" alt="Anime Cooking ASMR Avatar" />
           </span>
           <span class="brand-text" data-brand-name>Anime Cooking ASMR</span>
         </a>

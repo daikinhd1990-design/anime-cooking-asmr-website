@@ -2,8 +2,7 @@
  * ============================================================================
  * ANIME COOKING ASMR — GENERAL WEBSITE CONFIGURATION (config.js)
  * ============================================================================
- * Edit this file to update general brand details, YouTube channel URL,
- * contact email, and official brand images when ready.
+ * Official branding assets (avatar, banner, favicon) are now connected.
  */
 
 const SITE_CONFIG = {
@@ -14,14 +13,10 @@ const SITE_CONFIG = {
   affiliateDisclosure:
     "Disclosure: This website may contain Shopee Affiliate links. If you make a qualifying purchase through these links, we may earn a commission at no additional cost to you.",
 
-  /**
-   * BRAND ASSETS (Phase 5: Update when official images are ready)
-   * Leave empty ("") to keep the built-in anime kitchen placeholder design.
-   * Example: logoUrl: "assets/avatar.jpg"
-   */
   branding: {
-    logoUrl: "",
-    heroBannerUrl: "",
-    faviconUrl: ""
+    logoUrl: "assets/avatar.jpg",
+    heroBannerUrl: "assets/banner.jpg",
+    characterCardUrl: "assets/character-card.jpg",
+    faviconUrl: "assets/favicon.png"
   }
 };
